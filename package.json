@@ -1,0 +1,24 @@
+{
+  "name": "aver-markets",
+  "version": "0.0.1",
+  "description": "React UI to handle Aver.exchange API",
+  "main": "src/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manelcecs/aver-markets.git"
+  },
+  "keywords": [
+    "aver",
+    "exchange",
+    "solana",
+    "react"
+  ],
+  "author": "manelcecs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manelcecs/aver-markets/issues"
+  },
+  "homepage": "https://github.com/manelcecs/aver-markets#readme"
+}
