@@ -1,74 +1,99 @@
 /* AVER color palette */
 $backgroung: rgba(18, 37, 60, 1);
 $primary: rgb(131, 72, 226);
-$accent: rgba(76, 201, 240,1);
-$secondary: rgba(247, 36, 133,1);
+$accent: rgba(76, 201, 240, 1);
+$secondary: rgba(247, 36, 133, 1);
 
 $text: #f8f9fa;
 
 $active: rgb(72, 204, 114);
 
-body{
-    background-color: $backgroung; 
+body {
+  background-color: $backgroung;
 }
 
-$gradient:
-linear-gradient(-270deg, $accent, $primary, $secondary);
+$gradient: linear-gradient(-270deg, $accent, $primary, $secondary);
 
-body{
-    background-color: $backgroung; 
+body {
+  background-color: $backgroung;
 }
 
-p{
-    color: $text;
+p {
+  color: $text;
 }
 
-.text-gradient{
-    background-image: linear-gradient(-270deg, rgba(76, 201, 240,1), rgb(131, 72, 226), rgba(247, 36, 133,1));
-    background-size: 300% 300%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    z-index: 1;
+img {
+    height: 30px;
+    width: 30px;
 }
 
-.text-centered{
-    text-align: center;
+.text-gradient {
+  background-image: linear-gradient(
+    -270deg,
+    rgba(76, 201, 240, 1),
+    rgb(131, 72, 226),
+    rgba(247, 36, 133, 1)
+  );
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 
-.text-left{
-    text-align: left;
+.text-centered {
+  text-align: center;
 }
 
-.text-right{
-    text-align: right;
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .animated {
-    animation: LinearTransition 10s ease infinite;
-    -webkit-animation: LinearTransition 10s ease infinite;
-    -moz-animation: LinearTransition 10s ease infinite;
+  animation: LinearTransition 10s ease infinite;
+  -webkit-animation: LinearTransition 10s ease infinite;
+  -moz-animation: LinearTransition 10s ease infinite;
 }
 
-.active{
-    color: $active;
+.active {
+  color: $active;
 }
-
-
 
 @-webkit-keyframes LinearTransition {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+  0% {
+    background-position: 0% 50%;
   }
-  @-moz-keyframes LinearTransition {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+  50% {
+    background-position: 100% 50%;
   }
-  @keyframes LinearTransition {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+  100% {
+    background-position: 0% 50%;
   }
+}
+@-moz-keyframes LinearTransition {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes LinearTransition {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
