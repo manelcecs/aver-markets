@@ -2,7 +2,7 @@
 import React from "react";
 import Layout from "../containers/Layout";
 import Header from "./Header";
-import Markets from "../containers/Markets";
+import Events from "../containers/Events";
 
 // assets imports
 import '../styles/_global.scss'
@@ -11,7 +11,7 @@ const App = () => {
     return (
         <Layout>
             <Header />
-            <Markets /> 
+            <Events /> 
         </Layout>
     );
 }
