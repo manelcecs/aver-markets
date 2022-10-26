@@ -4,6 +4,10 @@ $primary: rgb(131, 72, 226);
 $accent: rgba(76, 201, 240,1);
 $secondary: rgba(247, 36, 133,1);
 
+$text: #f8f9fa;
+
+$active: rgb(72, 204, 114);
+
 body{
     background-color: $backgroung; 
 }
@@ -13,6 +17,10 @@ linear-gradient(-270deg, $accent, $primary, $secondary);
 
 body{
     background-color: $backgroung; 
+}
+
+p{
+    color: $text;
 }
 
 .text-gradient{
@@ -42,6 +50,12 @@ body{
     -webkit-animation: LinearTransition 10s ease infinite;
     -moz-animation: LinearTransition 10s ease infinite;
 }
+
+.active{
+    color: $active;
+}
+
+
 
 @-webkit-keyframes LinearTransition {
     0%{background-position:0% 50%}
