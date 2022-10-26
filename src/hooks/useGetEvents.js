@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import { getActiveEvents } from "../services/markets.service";
 
 // TODO: parametrice API uri to maybe add pagination/query params
-const useGetMarkets = () => {
+const useGetEvents = () => {
     // define hook state
-  const [markets, setMarkets] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(async () => {
       // async call to API
     const response = await getActiveEvents();
 
     // set markets to hook state
-    setMarkets(response.data.results);
+    setEvents(response.data.results);
   }, []);
 
-  return markets;
+  return events;
 };
 
-export default useGetMarkets;
+export default useGetEvents;
