@@ -1,8 +1,18 @@
+// js imports
 import React from "react";
+import Layout from "../containers/Layout";
+import Header from "./Header";
+import Markets from "../containers/Markets";
+
+// assets imports
+import '../styles/_global.scss'
 
 const App = () => {
     return (
-        <h1>Hello World!</h1>
+        <Layout>
+            <Header />
+            <Markets /> 
+        </Layout>
     );
 }
 
