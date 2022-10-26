@@ -1,4 +1,8 @@
+// js imports
 import React from "react";
+
+// assets imports
+import '../styles/_global.scss'
 
 const App = () => {
     return (
