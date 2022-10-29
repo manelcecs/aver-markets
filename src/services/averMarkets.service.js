@@ -1,34 +1,20 @@
-import { AverClient, SolanaNetwork, AVER_PROGRAM_IDS, Market, MarketStatus } from "aver-ts";
-import { Connection, PublicKey, Keypair } from "@solana/web3.js";
-import bs58 from 'bs58';
+import { Market, MarketStatus } from "aver-ts";
+import { PublicKey } from "@solana/web3.js";
+
+import { getOwnerKeyPair, getAverConnection } from "./aver.service";
 
 export const getAverMarket = async (market) => {
+
+  // check if market is active
   if (market.internal_status !== "active") {
     throw Error(`Market ${market.name} is not 'active' now.`);
   }
 
-  // client connection options
-  const opts = { preflightCommitment: "confirmed" };
-
-  //conection obj
-  // workaround -> aver.getSolanaEndpoint(SolanaNetwork.Devnet) not working
-  const solanaEndpoint = "https://api.devnet.solana.com";
-  const connection = new Connection(solanaEndpoint, "confirmed");
-
   // Owner keyPair
-  const secretKey = bs58.decode(
-    "2qP527Hw6iC4J3w7B63dVg9dnKsZfwmkVeAxgmB4UqEcVC4KzV6H6u84qVxBdHwc54pPHgbBhwP5Prj8M9j3rRUk"
-    )
-  const ownerKeypair = Keypair.fromSecretKey(secretKey)
+  const ownerKeypair = getOwnerKeyPair();
 
-  //client obj
-  const client = await AverClient.loadAverClient(
-    connection,
-    SolanaNetwork.Devnet,
-    ownerKeypair,
-    opts,
-    AVER_PROGRAM_IDS
-  );
+  // aver client connection
+  const client = await getAverConnection();
 
   // funding wallet with 1 SOL
   await client?.requestLamportAirdrop(1_000_000, ownerKeypair.publicKey);
@@ -47,7 +33,6 @@ export const getAverMarket = async (market) => {
       m?.tradingCeaseTime ? m?.tradingCeaseTime > new Date(Date.now()) : true
     );
 
-  // get first
-  let averMarket = activePreEventMarkets[0];
-  return averMarket;
+  // return all available markets
+  return activePreEventMarkets;
 };
