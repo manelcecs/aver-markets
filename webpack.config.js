@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 const __basedir = path.resolve(__dirname, 'dist');
 module.exports = {
@@ -14,7 +15,19 @@ module.exports = {
     {
         extensions: [
             '.js', '.jsx', '.ts'
-        ]
+        ],
+        fallback: {
+            "fs": false,
+            "tls": false,
+            "net": false,
+            "path": false,
+            "zlib": false,
+            "http": false,
+            "https": false,
+            "stream": false,
+            "crypto": false,
+            
+          }
     },
     module: {
         rules: [
@@ -46,7 +59,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html',
             filename: 'index.html'
-        }), new MiniCssExtractPlugin({filename:'[name].css'})
+        }), 
+        new MiniCssExtractPlugin({filename:'[name].css'}),
+        new NodePolyfillPlugin()
     ], 
     devServer: {static: {
         directory: __basedir},
