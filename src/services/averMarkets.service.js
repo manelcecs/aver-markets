@@ -1,20 +1,22 @@
 import { Market, MarketStatus } from "aver-ts";
 import { PublicKey } from "@solana/web3.js";
 
-import { getOwnerKeyPair, getAverConnection } from "./aver.service";
+import { getOrCreateOwnerKeyPair, getOrCreateAverConnection } from "./aver.service";
+
+
 
 export const getAverMarket = async (market) => {
-
+  debugger;
   // check if market is active
   if (market.internal_status !== "active") {
     throw Error(`Market ${market.name} is not 'active' now.`);
   }
 
   // Owner keyPair
-  const ownerKeypair = getOwnerKeyPair();
+  const ownerKeypair = getOrCreateOwnerKeyPair();
 
   // aver client connection
-  const client = await getAverConnection();
+  const client = await getOrCreateAverConnection();
 
   // funding wallet with 1 SOL
   await client?.requestLamportAirdrop(1_000_000, ownerKeypair.publicKey);
@@ -34,5 +36,5 @@ export const getAverMarket = async (market) => {
     );
 
   // return all available markets
-  return activePreEventMarkets;
+  return activePreEventMarkets[0];
 };

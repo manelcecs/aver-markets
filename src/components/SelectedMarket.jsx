@@ -1,43 +1,62 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
+import React from "react";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
 
-const SelectedMarket = ({market, onClose, open}) => {
+import Avatar from "@mui/material/Avatar";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+
+import ListItemText from "@mui/material/ListItemText";
+
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+
+
+import { getAverMarket } from "../services/averMarkets.service";
+
+const SelectedMarket = ({ market, onClose, open }) => {
+  //const averMarket = await getAverMarket(market);
 
   const handleClose = () => {
+    debugger;
     onClose();
   };
 
-
-  debugger;
-  const outcomesOrderbook = market?.orderbooks.map((orderBook => {
-    return {best_ask_price:orderBook.best_ask_price, best_ask_bid: orderBook.best_ask_price};
-    //return {best_ask_price:outcome1Orderbook.getBestAskPrice(true), best_ask_bid: outcome1Orderbook.getBestBidPrice(true)};
-  }));
-
-debugger;
-  return ( market ? 
-
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>{market.name}{" "} <strong className={market.status}>{market.status}</strong></DialogTitle>
+ 
+  return (
+    <Dialog className="dialog" onClose={handleClose} open={open}>
+      <DialogTitle>
+        Placing a bet!
+      </DialogTitle>
       <List sx={{ pt: 0 }}>
-        {market?.outcomeNames.map((outcome, i) =>( 
+        {market.outcomes.map((outcome) => (
+          <ListItem key={outcome.id}>
+            <ListItemAvatar>
+              <Avatar>
+                <img src={outcome.image_url} />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={outcome.description} />
 
-          <ListItem  key={outcome}>
-            {outcome}
+            
           </ListItem>
-
         ))}
-        
-      </List>
+        </List>
     </Dialog>
- : ''
   );
-}
+};
 
+const getMarketOutcomes =  (market, averMarket) => {
+  return market?.outcomes.map((outcome) => {
+    const betting_prices = {
+      id: outcome.id,
+      index: outcome.index,
+      bid_name: outcome.description,
+      best_ask_price: averMarket.getBestAskPrice(true),
+      best_ask_bid: averMarket.getBestBidPrice(true),
+    };
+    debugger;
+    return betting_prices;
+  });
+};
 export default SelectedMarket;

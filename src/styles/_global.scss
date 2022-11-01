@@ -1,8 +1,12 @@
 /* AVER color palette */
 $backgroung: rgba(18, 37, 60, 1);
+$backgroung-100: rgb(50, 76, 109);
+
 $primary: rgb(131, 72, 226);
 $accent: rgba(76, 201, 240, 1);
 $secondary: rgba(247, 36, 133, 1);
+
+$terciary: #27354d;
 
 $text: #f8f9fa;
 
@@ -96,4 +100,33 @@ img {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.dialog{
+  background-color: $terciary;
+  color: $text;
+
+  &.button_bet {
+    border-color: $accent;
+    color: $accent
+  }
+
+  &.button_ask {
+    border-color: $secondary;
+    color: $secondary
+  }
+
+}
+
+.market-container {
+  margin-top: 10px;
+  padding: auto;
+}
+
+.MuiCard-root{
+  background-color: $backgroung-100 !important;
+}
+
+.MuiPaper-root{
+  background-color: $backgroung-100 !important;
 }

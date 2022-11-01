@@ -1,67 +1,84 @@
-import  React, {useState } from "react";
+import React, { useState } from "react";
 import { getAverMarket } from "../services/averMarkets.service";
 import SelectedMarket from "./SelectedMarket";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+
+import Avatar from "@mui/material/Avatar";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+
+import ListItemText from "@mui/material/ListItemText";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+
+import Typography from "@mui/material/Typography";
 
 const Market = ({ market }) => {
   const [open, setOpen] = useState(false);
-  debugger;
-  const [selectedMarket, setSelectedMarket] = useState(null);
-
-  const marketInternalStatus = market.internal_status;
-  const marketPubkey = market.pubkey;
-  const handleOnClick = async () => {
-    console.log(`Selected market ${market.name} with pubkey ${marketPubkey}`);
-
-    setSelectedMarket({"name":'Dummy market', "status": 'active', "orderbooks": [
-      {"best_ask_price": 12, "best_ask_bid": 12.1}
-    ],
-  "outcomeNames": [
-    "Team 1 WINS", "Team 2 WINS", "DRAW :/"
-  ]})
-    //setSelectedMarket(await getAverMarket(market));
-
-    setOpen(true);
-  };
+  const [action, setAction] = useState(null);
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleBet = () => {
+    setAction('bet');
+    setOpen(true);
+  };
+
+  const handleAsk = () => {
+    setAction('ask');
+    setOpen(true);
+  };
+
   return (
-    <div className="market-container" onClick={handleOnClick}>
-      <p>
-        {market.name}{" "}
-        <strong className={marketInternalStatus}>{marketInternalStatus}</strong>
-      </p>
-      <SelectedMarket
-        market={selectedMarket}
-        onClose={handleClose}
-        open={open}
-      />
-    </div>
+    <Card className="market-container">
+      <CardHeader title={market.name} />
+      <CardContent>
+        <List sx={{ pt: 0 }}>
+          {market.outcomes.map((outcome) => (
+            <ListItem key={outcome.id}>
+              <ListItemAvatar>
+                <Avatar>
+                  <img src={outcome.image_url} />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={outcome.description} />
+
+              <Button variant="contained" onClick={handleBet}>
+                Bet
+              </Button>
+              <Button variant="outlined" onClick={handleAsk}>
+                Ask
+              </Button>
+            </ListItem>
+          ))}
+        </List>
+      </CardContent>
+
+      {selectedMarket ? (
+        <SelectedMarket
+          market={market}
+          onClose={handleClose}
+          open={open}
+          action={action}
+        />
+      ) : (
+        ""
+      )}
+    </Card>
   );
 };
 
 const printMarketInfo = (market) => {
   // console.log market data or specific properties
   console.log("-".repeat(10));
-  console.log(`Market ${market?.pubkey} loaded...`);
+  console.log(`Market ${market?.pubkey} selected...`);
   console.log(`Market name: ${market?.name}`);
-  market?.outcomeNames.map((o, i) => {
-    console.log(` - ${i} - ${o}`);
-  });
+
   console.log("-".repeat(10));
-  console.log("Market status:");
-  console.log(market.marketStatus);
-
-  // console.log one or more of the orderbooks or orderbook properties from memory
-  if (!market.orderbooks || !market.orderbooks[0])
-    throw new Error("Orderbooks don't exist");
-
-  debugger;
-  const outcome1Orderbook = market.orderbooks[0];
-  console.log("Best Ask Price", outcome1Orderbook.getBestAskPrice(true));
-  console.log("Best Bid Price", outcome1Orderbook.getBestBidPrice(true));
 };
 
 export default Market;
