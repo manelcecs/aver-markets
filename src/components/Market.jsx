@@ -13,7 +13,6 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 
-import Typography from "@mui/material/Typography";
 
 const Market = ({ market }) => {
   const [open, setOpen] = useState(false);
@@ -58,7 +57,7 @@ const Market = ({ market }) => {
         </List>
       </CardContent>
 
-      {selectedMarket ? (
+      {market ? (
         <SelectedMarket
           market={market}
           onClose={handleClose}
